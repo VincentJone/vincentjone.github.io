@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>路由传参 - Hexo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="
+路由跳转有几种方式 比如：A-&amp;gt;B
+声明式导航：router-link（务必要有 to 属性），可以实现路由的跳转
+编程式导航：利用的是组件实例的$router.push|replace 方,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="路由传参 - Hexo"/>
+    <meta name="twitter:description" content="
+路由跳转有几种方式 比如：A-&amp;gt;B
+声明式导航：router-link（务必要有 to 属性），可以实现路由的跳转
+编程式导航：利用的是组件实例的$router.push|replace 方,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="Hexo"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="路由传参 - Hexo"/>
+    <meta property="og:description" content="
+路由跳转有几种方式 比如：A-&amp;gt;B
+声明式导航：router-link（务必要有 to 属性），可以实现路由的跳转
+编程式导航：利用的是组件实例的$router.push|replace 方,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Hexo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">路由传参</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">路由传参</h1>
+        <div class="stuff">
+            <span>四月 12, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/js/" rel="tag">js</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <ol>
+<li><p>路由跳转有几种方式 比如：A-&gt;B</p>
+<p>声明式导航：router-link（务必要有 to 属性），可以实现路由的跳转</p>
+<p>编程式导航：利用的是组件实例的$router.push|replace 方法，可以实现路由的跳转（可以书写自己的业务）</p>
+</li>
+<li><p>路由传参的集中写法</p>
+<ol>
+<li><p>params 参数：属于路径当中的一部分，需要注意，在配置路由的时候，需要占位</p>
+</li>
+<li><p>query 参数：不属于路径当中的一部分，类似于 ajax 中 queryScript &#x2F;home?key&#x3D;v&amp;key&#x3D;v，不需要占位</p>
+</li>
+<li><p>传参数的三种方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goSearch</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 路由传递参数</span></span><br><span class="line">    <span class="comment">// 第一种字符串传参，使用params，query参数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">&quot;/search/&quot;</span>+<span class="variable language_">this</span>.<span class="property">keyword</span>+<span class="string">&quot;?&quot;</span>+<span class="variable language_">this</span>.<span class="property">keyword</span>.<span class="title function_">toUpperCase</span>());</span><br><span class="line">    <span class="comment">// 第二种</span></span><br><span class="line">    <span class="comment">// 模板字符串</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(<span class="string">`/search/<span class="subst">$&#123;<span class="variable language_">this</span>.keyword&#125;</span>?k=<span class="subst">$&#123;<span class="variable language_">this</span>.keyword.toUpperCase()&#125;</span>`</span>)</span><br><span class="line">    <span class="comment">// 第三种对象写法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(&#123;<span class="attr">name</span>:<span class="string">&quot;search&quot;</span>,<span class="attr">params</span>:&#123;<span class="attr">keyword</span>:<span class="variable language_">this</span>.<span class="property">keyword</span>&#125;,<span class="attr">query</span>:&#123;<span class="attr">keyword</span>:<span class="variable language_">this</span>.<span class="property">keyword</span>.<span class="title function_">toUpperCase</span>()&#125;&#125;)</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></li>
+<li><p>params 传参问题</p>
+<ol>
+<li><p>如何指定 params 参数可传可不传</p>
+<p>如果路由 path 要求传递 params 参数,但是没有传递,会发现地址栏 URL 有问题，详情如下：</p>
+<p>Search 路由项的 path 已经指定要传一个 keyword 的 params 参数，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">path</span>: <span class="string">&quot;/search/:keyword&quot;</span>,</span><br><span class="line">  <span class="comment">// 执行下面进行路由跳转的代码：</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Search&quot;</span>,</span><br><span class="line">    <span class="attr">query</span>: &#123; <span class="attr">keyword</span>: <span class="variable language_">this</span>.<span class="property">keyword</span> &#125;,</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>当前跳转代码没有传递 params 参数</p>
+<p>地址栏信息：<a target="_blank" rel="noopener" href="http://localhost:8080/#/?keyword=asd">http://localhost:8080/#/?keyword=asd</a></p>
+<p>此时的地址信息少了&#x2F;search</p>
+<p>正常的地址栏信息: <a target="_blank" rel="noopener" href="http://localhost:8080/#/search?keyword=asd">http://localhost:8080/#/search?keyword=asd</a></p>
+<p>解决方法：可以通过改变 path 来指定 params 参数可传可不传</p>
+<p>path: “&#x2F;search&#x2F;:keyword?”,?表示该参数可传可不传</p>
+<p>参考连接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44867717/article/details/109773945">https://blog.csdn.net/weixin_44867717/article/details/109773945</a></p>
+</li>
+<li><p>由(1)可知 params 可传可不传，但是如果传递的时为空串，如何解决 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(&#123;<span class="attr">name</span>:<span class="string">&quot;Search&quot;</span>,<span class="attr">query</span>:&#123;<span class="attr">keyword</span>:<span class="variable language_">this</span>.<span class="property">keyword</span>&#125;,<span class="attr">params</span>:&#123;<span class="attr">keyword</span>:<span class="string">&#x27;&#x27;</span>&#125;&#125;)</span><br><span class="line">&lt;!-- 出现的问题和<span class="number">1</span>中的问题相同,地址信息少了/search --&gt;</span><br><span class="line">&lt;!-- 解决方法： 加入||<span class="literal">undefined</span>，当我们传递的参数为空串时地址栏url也可以保持正常 --&gt;</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(&#123;<span class="attr">name</span>:<span class="string">&quot;Search&quot;</span>,<span class="attr">query</span>:&#123;<span class="attr">keyword</span>:<span class="variable language_">this</span>.<span class="property">keyword</span>&#125;,<span class="attr">params</span>:&#123;<span class="attr">keyword</span>:<span class="string">&#x27;&#x27;</span>||<span class="literal">undefined</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由组件能不能传递 props 数据？<br>可以，但是只能传递 params 参数,具体知识为 props 属性 。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="路由传参的报错"><a href="#路由传参的报错" class="headerlink" title="路由传参的报错"></a>路由传参的报错</h4><ol>
+<li><p>编程式路由跳转到当前路由参数不变，多次执行会抛出 NavigationDuplicated 的警告错误</p>
+<ul>
+<li>路由跳转的两种形式：声明导航，编程式导航</li>
+</ul>
+<ul>
+<li>声明式导航没有这类型问题，因为 vue-router 底层已经处理好了</li>
+</ul>
+</li>
+<li><p>通过给 push 方法传递相应的成功。失败的回调函数，可以获取到当前的错误可以解决</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;search&quot;</span>,</span><br><span class="line">    <span class="attr">params</span>: &#123; <span class="attr">keyword</span>: <span class="variable language_">this</span>.<span class="property">keyword</span> &#125;,</span><br><span class="line">    <span class="attr">query</span>: &#123; <span class="attr">k</span>: <span class="variable language_">this</span>.<span class="property">keyword</span>.<span class="title function_">toUpperCase</span>() &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">() =&gt;</span> &#123;&#125;,</span><br><span class="line">  <span class="function">() =&gt;</span> &#123;&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>这种写法：治标不治本，将来在别的组件当中 push|replace，编程式导航还是有类似的错误</p>
+</li>
+<li><ul>
+<li>this:当前组件实例（search）</li>
+<li>this.$router属性：当前这个属性，属性值VueRouter类的一个实例，当在入口文件注册路由的时候，给组件实例添加$router|$route 属性</li>
+<li>push:VueRouter 类的一个实例</li>
+</ul>
+</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
